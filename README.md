@@ -5,7 +5,7 @@
 ### 1、安装依赖
 
 ```
-nmp install 或者 nmp install
+nmp install 或者 cnmp install
 ```
 ### 2、启动项目
 ```
