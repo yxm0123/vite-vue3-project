@@ -1,0 +1,34 @@
+{
+  "name": "vite-vue3-project",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "eslint:comment": "使用 ESLint 检查并自动修复 src 目录下所有扩展名为 .js 和 .vue 的文件",
+    "eslint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src"
+  },
+  "dependencies": {
+    "element-plus": "^2.2.17",
+    "pinia": "^2.0.23",
+    "vue": "^3.2.37",
+    "vue-i18n": "^9.3.0-beta.6",
+    "vue-router": "^4.1.5"
+  },
+  "devDependencies": {
+    "@types/node": "^18.8.3",
+    "@typescript-eslint/eslint-plugin": "^5.39.0",
+    "@vitejs/plugin-vue": "^3.1.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.25.0",
+    "eslint-plugin-vue": "^9.6.0",
+    "mockjs": "^1.1.0",
+    "sass": "^1.55.0",
+    "typescript": "^4.6.4",
+    "vite": "^3.1.0",
+    "vite-plugin-mock": "^2.9.6",
+    "vue-tsc": "^0.40.4"
+  }
+}
