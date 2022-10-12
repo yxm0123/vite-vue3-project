@@ -1,32 +1,38 @@
 <template>
   <div class="login-container">
-    <el-card class="box-card">
+    <div class="box-card">
+      <div class="login-title">系统登录</div>
       <el-form
         ref="formRef"
         :model="loginForm"
         label-position="top"
         label-width="120px"
         :rules="rules"
-        class="demo-dynamic"
+        class="login-form"
       >
-        <el-form-item
-          prop="userName"
-          label="用户名"
+        <el-form-item prop="userName">
+        <el-input 
+          v-model="loginForm.userName" 
+          clearable placeholder="用户名"
         >
-          <el-input 
-            v-model="loginForm.userName" 
-            placeholder="请输入用户名"
-          />
+            <template #prepend>
+              <el-icon>
+                <Avatar />
+              </el-icon>
+            </template>
+          </el-input>
         </el-form-item>
-        <el-form-item
-          prop="passward"
-          label="密码"
-        >
+        <el-form-item prop="password">
           <el-input
-           type="password"
-            v-model="loginForm.passward"
-            placeholder="请输入密码"
-          />
+            v-model="loginForm.password"
+            clearable
+            placeholder="密码"
+            show-password
+          >
+            <template #prepend>
+              <el-icon><Lock /></el-icon>
+            </template>
+          </el-input>
         </el-form-item>
         <el-form-item>
           <el-button 
@@ -37,8 +43,9 @@
             登录
           </el-button>
         </el-form-item>
+        <p class="login-tips">用户名: admin 密码: 123</p>
       </el-form>
-    </el-card>
+    </div>
   </div>
 </template>
 
@@ -53,13 +60,13 @@
   const router = useRouter()
   const loginForm = reactive({
     userName: '',
-    passward: ''
+    password: ''
   });
   const rules = reactive<FormRules>({
     userName: [
       { required: true, message: '请输入用户名', trigger: 'blur' },
     ],
-    passward: [
+    password: [
       { required: true, message: '请输入密码', trigger: 'blur' },
     ],
   })
@@ -70,7 +77,7 @@
       if (valid) {
         let parmas = {
           userName: loginForm.userName,
-          passward: loginForm.passward
+          password: loginForm.password
         }
         let {success,message,data} = await $api.apiLogin.login(parmas)
         if(success){
@@ -82,7 +89,7 @@
         }else{
            ElMessage({
             message: message,
-            type: 'warning',
+            type: 'error',
           })
         }
       } else {
@@ -103,11 +110,32 @@
   justify-content: center;
   align-items: center;
   .box-card{
-    width: 500px;
-    padding: 20px;
+    width: 350px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.3);
     .login-btn{
       width: 100%;
-      margin-top: 10px;
+      height: 36px;
+      margin: 10px 0;
+    }
+    .login-title{
+      width: 100%;
+      font-size: 20px;
+      line-height: 50px;
+      color: #fff;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+    .login-form{
+      padding: 30px;
+    }
+    .login-tips{
+      font-size: 12px;
+      line-height: 30px;
+      color: #85155c;
+    }
+    :deep .el-input{
+      height: 40px;
     }
   }
 }

@@ -1,8 +1,12 @@
 <template>
   <div class="nav-bar">
     <el-breadcrumb separator="/">
-      <el-breadcrumb-item :to="{path: path.path}">
-        {{ path.meta.title }}
+      <el-breadcrumb-item 
+        v-for="(item, index) in path.menuList" 
+          :key="item.path" 
+          :to="{path: item.path}"
+        >
+        {{ $t(`public.${item.meta.title}`)}}
       </el-breadcrumb-item>
     </el-breadcrumb>
     <div>
@@ -39,17 +43,20 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { computed, reactive, ref } from 'vue';
+  import { computed, reactive, ref,watch,nextTick} from 'vue';
   import { useRoute } from 'vue-router';
   import { mystorage } from '@/utils/storage';
   import i18n from '@/language';
   const path = computed(() => {
     const route = useRoute();
     const { meta, path } = route;
-    const avatar = ref('https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png');
+    let matched = route.matched.filter((item) => item.meta && item.meta.title)
+    let menuList = matched.filter((item) => item.meta && item.meta.title && item.name !== 'dashboad')
+    console.log(menuList, 12)
     return {
       meta,
       path,
+      menuList
     };
   });
   const langList = reactive([
@@ -76,8 +83,8 @@
     overflow: hidden;
     position: relative;
     background: #fff;
-    padding: 0 40px;
-    box-shadow: 0 2px 4px #0000001f, 0 0 6px #0000000a;
+    padding: 0 25px;
+    box-shadow: 0 2px 0px #0000001f, 0 0 0px #0000000a;
     z-index: 999;
     display: flex;
     justify-content: space-between;

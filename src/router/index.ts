@@ -28,7 +28,7 @@ export const routes: Array<RouteRecordRaw> = [
     redirect: '/dashboad',
     meta: { 
       title: 'home', 
-      icon: 'Edit', 
+      icon: 'HomeFilled', 
       hidden: false
     },
     children: [
@@ -38,19 +38,29 @@ export const routes: Array<RouteRecordRaw> = [
         name: 'dashboad',
         meta: { 
           title: 'home', 
-          icon: 'House', 
+          icon: 'HomeFilled', 
           hidden: false
         }
       },
       {
-        path: '/from',
-        component: () => import('@/views/my-form/index.vue'),
-        name: 'From',
+        path: '/system',
         meta: { 
-          title: 'form', 
+          title: 'system', 
           icon: 'Platform', 
           hidden: false
-        }
+        },
+        children:[
+          {
+            path: '/system/user',
+            component: () => import('@/views/my-system/user.vue'),
+            name: 'user',
+            meta: { 
+              title: 'user', 
+              icon: 'HomeFilled', 
+              hidden: false
+            }
+          }
+        ]
       }
     ]
   }

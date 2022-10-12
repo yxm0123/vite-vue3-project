@@ -5,6 +5,8 @@ export default {
     zh_CN: '中文',
     en_US: 'English',
     home: '首页',
-    form: 'form表单'
+    form: 'form表单',
+    system: '系统设置',
+    user: '用户管理'
   }
 }

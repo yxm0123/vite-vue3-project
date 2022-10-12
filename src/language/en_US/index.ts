@@ -5,6 +5,8 @@ export default {
     zh_CN: 'Chinese',
     en_US: 'English',
     home: 'Home',
-    form: 'Form'
+    form: 'Form',
+    system: 'system',
+    user: 'user'
   }
 }

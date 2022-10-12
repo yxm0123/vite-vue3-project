@@ -1,5 +1,13 @@
 <template>
   <div class="sidebar-container">
+    <div class="logo">
+      <el-icon size="26px">
+        <el-icon size="20px" color="#fff">
+          <OfficeBuilding />
+        </el-icon>
+      </el-icon>
+      <h1 class="logo-text">管理平台</h1>
+    </div>
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
         :router="true"
@@ -50,21 +58,45 @@
 </script>
 
 <style lang="scss" scoped>
-.el-scrollbar {
-  height: 100%;
-  :deep .el-menu-item{
-    // width: 190px;
+.sidebar-container{
+  .logo {
+    height: 50px;
+    line-height: 50px;
+    overflow: hidden;
     display: flex;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    line-height:23px;
-    height: auto;
-    white-space:pre-wrap !important;
+    align-items: center;
+    cursor: pointer;
+    background-color: #304156;
+    padding-left: 20px;
+    border-radius: 0 30px 0 0;
+    .logo-text {
+      display: inline-block;
+      height: 50px;
+      font-size: 14px;
+      line-height: 50px;
+      color: #fff;
+    }
   }
-}
-.el-menu {
-  border: none;
-  height: 100%;
-  width: 100% !important;
+  .el-scrollbar {
+    height: 100%;
+    :deep .el-menu-item{
+      display: flex;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      line-height:23px;
+      height: auto;
+      // white-space:pre-wrap !important;
+    }
+  }
+  .el-menu {
+    border: none;
+    height: 100%;
+    width: 100% !important;
+    :deep .is-active{
+      background: rgb(38, 52, 69);
+      color: #fff;
+      // border-right: 3px solid #409EFF;
+    }
+  }
 }
 </style>

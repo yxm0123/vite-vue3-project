@@ -1,1 +1,1 @@
-export const dashboard = '/api/dashboard'
+export const dashboard = '/api/dashboard/get_data'
