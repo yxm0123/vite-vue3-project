@@ -32,6 +32,16 @@
         </template>
       </el-table-column>
     </el-table>
+    <div class="user-pagination">
+      <el-pagination
+        v-model:currentPage="currentPage"
+        v-model:page-size="pageSize"
+        :page-sizes="[10, 20, 50, 100]"
+        background
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="tableData.length"
+      />
+    </div>
  </div>
 </template>
 
@@ -46,6 +56,8 @@ import { ref,inject, onMounted, reactive } from 'vue'
     password: string
     date: string
   }
+  const currentPage = ref(1)
+  const pageSize = ref(10)
   const tableData: Array<User> = reactive([])
   onMounted(()=>{
     getTableList()
@@ -53,7 +65,6 @@ import { ref,inject, onMounted, reactive } from 'vue'
  const getTableList = async()=>{
   try {
     let {data} = await $api.apiSystem.getList();
-    console.log(data)
     tableData.push(...data)
   } catch (error) {
     console.log(error)
@@ -72,6 +83,13 @@ import { ref,inject, onMounted, reactive } from 'vue'
 .user-container{
   .user-header{
     margin-bottom: 20px;
+  }
+  .user-pagination{
+    margin-top: 20px;
+    float: right;
+    :deep .el-pagination .el-select .el-input{
+      width: 110px;
+    }
   }
 }
 </style>
