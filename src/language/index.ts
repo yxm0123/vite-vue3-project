@@ -4,7 +4,6 @@ import en_US from './en_US';
 import zh_CN from './zh_CN';
 export const getLocale = () => {
   const cookieLanguage = mystorage.get('current_lang');
-  console.log(cookieLanguage, 8989)
   if (cookieLanguage) {
     return cookieLanguage;
   }

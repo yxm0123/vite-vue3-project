@@ -1,87 +1,77 @@
 <template>
- <div>
+ <div class="user-container">
     <h3>用户管理</h3>
-    <el-button type="primary">添加用户</el-button>
+    <div class="user-header">
+      <el-button type="primary">添加用户</el-button>
+    </div>
     <el-table
       ref="multipleTableRef"
       :data="tableData"
       border
       style="width: 100%"
-      @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55" />
+      <el-table-column prop="name" label="姓名"  />
       <el-table-column label="账号" >
-        <template #default="scope">{{ scope.row.date }}</template>
+        <template #default="scope">{{ scope.row.account }}</template>
       </el-table-column>
-      <el-table-column prop="Name" label="密码"  />
-      <el-table-column prop="Name" label="角色"  />
+      <el-table-column prop="password" label="密码"  />
+      <el-table-column prop="email" label="邮箱"  />
+      <el-table-column prop="roles" label="角色"  />
+      <el-table-column prop="date" label="创建时间"  />
+      <el-table-column  label="操作" >
+        <template #default="scope">
+          <el-button type="primary" size="small" >Edit</el-button>
+          <el-button
+            size="small"
+            type="danger"
+            @click="deleteItem(scope.$index, scope.row)"
+          >
+          Delete
+          </el-button>
+        </template>
+      </el-table-column>
     </el-table>
  </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { ElTable } from 'element-plus'
+import { ref,inject, onMounted, reactive } from 'vue'
+  const $api: any = inject('$api');
+  interface User {
+    account: string
+    name: string
+    email: string
+    roles: string
+    password: string
+    date: string
+  }
+  const tableData: Array<User> = reactive([])
+  onMounted(()=>{
+    getTableList()
+  })
+ const getTableList = async()=>{
+  try {
+    let {data} = await $api.apiSystem.getList();
+    console.log(data)
+    tableData.push(...data)
+  } catch (error) {
+    console.log(error)
+  }
+ }
+ const deleteItem = async(index:Number,row:User) =>{
+  try {
+    console.log(index,row)
+  } catch (error) {
+    console.log(error)
+  }
+ }
+</script>
 
-interface User {
-  date: string
-  name: string
-  address: string
-}
-
-const multipleTableRef = ref<InstanceType<typeof ElTable>>()
-const multipleSelection = ref<User[]>([])
-const toggleSelection = (rows?: User[]) => {
-  if (rows) {
-    rows.forEach((row) => {
-      // TODO: improvement typing when refactor table
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      multipleTableRef.value!.toggleRowSelection(row, undefined)
-    })
-  } else {
-    multipleTableRef.value!.clearSelection()
+<style lang="scss" scoped>
+.user-container{
+  .user-header{
+    margin-bottom: 20px;
   }
 }
-const handleSelectionChange = (val: User[]) => {
-  multipleSelection.value = val
-}
-
-const tableData: User[] = [
-  {
-    date: '2016-05-03',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-02',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-04',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-01',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-08',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-06',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-07',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-]
-</script>
+</style>

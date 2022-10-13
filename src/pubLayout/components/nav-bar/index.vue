@@ -52,7 +52,6 @@
     const { meta, path } = route;
     let matched = route.matched.filter((item) => item.meta && item.meta.title)
     let menuList = matched.filter((item) => item.meta && item.meta.title && item.name !== 'dashboad')
-    console.log(menuList, 12)
     return {
       meta,
       path,

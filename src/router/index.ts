@@ -1,13 +1,13 @@
 
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import dashboard from './my-dashboard'
+import system from './my-system'
 export const routes: Array<RouteRecordRaw> = [
   {
     path: '/login',
     name: 'Login',
     meta: {
       title: 'login',
-      keepAlive: true,
-      requireAuth: false,
       hidden: true
     },
     component: () => import('@/views/my-login/login.vue')
@@ -32,36 +32,8 @@ export const routes: Array<RouteRecordRaw> = [
       hidden: false
     },
     children: [
-      {
-        path: '/dashboad',
-        component: () => import('@/views/my-dashboard/index.vue'),
-        name: 'dashboad',
-        meta: { 
-          title: 'home', 
-          icon: 'HomeFilled', 
-          hidden: false
-        }
-      },
-      {
-        path: '/system',
-        meta: { 
-          title: 'system', 
-          icon: 'Platform', 
-          hidden: false
-        },
-        children:[
-          {
-            path: '/system/user',
-            component: () => import('@/views/my-system/user.vue'),
-            name: 'user',
-            meta: { 
-              title: 'user', 
-              icon: 'HomeFilled', 
-              hidden: false
-            }
-          }
-        ]
-      }
+      ...dashboard,
+      ...system
     ]
   }
 ]

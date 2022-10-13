@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["vite/client", "jest"],
+    // "types": ["vite/client", "jest"],
     "typeRoots": [
       "./node_modules/@types/", // 默认值
       "./types"
