@@ -7,6 +7,7 @@ export default {
     home: '首页',
     form: 'form表单',
     system: '系统设置',
-    user: '用户管理'
+    user: '用户管理',
+    set: '设置'
   }
 }

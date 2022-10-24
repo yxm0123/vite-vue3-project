@@ -34,14 +34,39 @@
   import { useRoute } from 'vue-router';
   import SidebarItem from './sideBarItem.vue';
   import { routes } from '@/router/index';
+  import { mystorage } from '@/utils/storage';
   const routerList: Array<any> = reactive([])
   onMounted(()=>{
+    let list:any = []
     routes.forEach((item:any)=>{
       if (item.path === '/') {
-        routerList.push(...item.children)
+        list.push(...item.children)
       }
     })
+    list.forEach((item:any)=>{
+      if(item.meta.roles.includes(mystorage.get('role')) ){
+        routerList.push(item)
+      }
+    })
+    filterChildrenRoutes(routerList)
   })
+
+  /**
+   * 子路由权限过滤
+   */
+  const filterChildrenRoutes = (childrenRouters:any) =>{
+    let childrenList:Array<any> = []
+    childrenRouters.forEach((item:any)=>{
+      if(item.meta.roles.includes(mystorage.get('role')) ){
+        childrenList.push(item);
+        if(item.children){
+          filterChildrenRoutes(item.children)
+        }
+      }
+    });
+    childrenRouters.length = 0
+    childrenRouters.push(...childrenList)
+  }
    const activeMenu = computed(() => {
       const route = useRoute();
       const { meta, path } = route;

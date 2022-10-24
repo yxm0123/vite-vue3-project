@@ -10,7 +10,8 @@ export default [
           success: true,
           message: 'success',
           data: {
-            access_token: Math.floor(Math.random() * 10) + 1 + 'cereson'
+            access_token: Math.floor(Math.random() * 10) + 1 + 'cereson',
+            role: 'admin'
           }
         }
       }else{

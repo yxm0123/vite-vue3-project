@@ -6,7 +6,8 @@ export default [
     meta: { 
       title: 'home', 
       icon: 'HomeFilled', 
-      hidden: false
+      hidden: false,
+      roles: ['admin', 'editor']
     }
   },
 ]

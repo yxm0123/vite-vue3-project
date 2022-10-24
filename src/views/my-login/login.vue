@@ -82,6 +82,7 @@
         let {success,message,data} = await $api.apiLogin.login(parmas)
         if(success){
           mystorage.set('token', data.access_token);
+          mystorage.set('role', data.role);
           mystorage.set('current_lang','zh_CN')
           router.push({ 
             name: 'Index'

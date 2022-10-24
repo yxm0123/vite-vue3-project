@@ -7,6 +7,7 @@ export default {
     home: 'Home',
     form: 'Form',
     system: 'system',
-    user: 'user'
+    user: 'user',
+    set: 'set up'
   }
 }

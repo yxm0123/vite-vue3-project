@@ -1,11 +1,13 @@
 export default [
   {
-    path: '/system/user',
+    path: '/system',
     meta: { 
       title: 'system', 
       icon: 'Setting', 
-      hidden: false
+      hidden: false,
+      roles: ['admin', 'editor']
     },
+    // component: () => import('@/views/my-system/index.vue'),
     children:[
       {
         path: '/system/user',
@@ -14,7 +16,19 @@ export default [
         meta: { 
           title: 'user', 
           icon: 'HomeFilled', 
-          hidden: false
+          hidden: false,
+          roles: ['admin','editor']
+        }
+      },
+      {
+        path: '/system/set',
+        component: () => import('@/views/my-system/set.vue'),
+        name: 'set',
+        meta: { 
+          title: 'set', 
+          icon: 'HomeFilled', 
+          hidden: false,
+          roles: ['admin']
         }
       }
     ]
