@@ -83,7 +83,7 @@
         if(success){
           mystorage.set('token', data.access_token);
           mystorage.set('current_lang','zh_CN')
-          router.push({
+          router.push({ 
             name: 'Index'
           })
         }else{
