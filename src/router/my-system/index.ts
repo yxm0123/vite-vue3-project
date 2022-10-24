@@ -1,6 +1,6 @@
 export default [
   {
-    path: '/system',
+    path: '/system/user',
     meta: { 
       title: 'system', 
       icon: 'Setting', 
