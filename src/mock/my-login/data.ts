@@ -1,4 +1,3 @@
-import Layout from '@/pubLayout/index.vue'
 export default [
   {
     path: '/system',
@@ -8,7 +7,7 @@ export default [
       hidden: false,
       roles: ['admin', 'editor']
     },
-    component: Layout,
+    // component: () => import('@/views/my-system/index.vue'),
     children:[
       {
         path: '/system/user',
@@ -33,5 +32,8 @@ export default [
         }
       }
     ]
+  },
+  {
+    
   }
 ]

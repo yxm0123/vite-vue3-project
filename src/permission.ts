@@ -3,7 +3,6 @@ import { mystorage } from '@/utils/storage';
 router.beforeEach(async(to: any, from: any, next: any) => {
   let token = mystorage.get('token');
   if(token){
-   
     const routers = router.getRoutes().filter((item:any)=>item.path === to.path)
     if(routers.length){
       next();
