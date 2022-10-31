@@ -43,15 +43,12 @@
         routerList.push(item)
         // list.push(...item.children)
       }
-      // if (item.path === '/') {
-      // }
     })
     // list.forEach((item:any)=>{
-    //   // if(item.meta.roles&&item.meta.roles.includes(mystorage.get('role')) ){
-    //   //   }
+    //   if(item.meta.roles&&item.meta.roles.includes(mystorage.get('role')) ){
     //     routerList.push(item)
+    //   }
     // })
-    console.log(list,26)
     filterChildrenRoutes(routerList)
   })
 

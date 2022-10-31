@@ -1,8 +1,8 @@
 export default [
   {
-    path: '/dashboad',
+    path: '/dashboard',
     component: () => import('@/views/my-dashboard/index.vue'),
-    name: 'dashboad',
+    name: 'dashboard',
     meta: { 
       title: 'home', 
       icon: 'HomeFilled', 

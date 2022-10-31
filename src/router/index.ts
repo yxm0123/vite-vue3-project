@@ -24,15 +24,19 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Index',
-    redirect: '/dashboad',
+    redirect: '/dashboard',
     component: () => import('@/pubLayout/index.vue'),
+    meta:{
+      title: 'home',
+      hidden: false,
+      icon: 'HomeFilled'
+    },
     children: [
       ...dashboard,
     ]
   },
   ...system
 ]
-console.log(routes, 1212)
 const router = createRouter({
   history: createWebHistory(),
   routes
