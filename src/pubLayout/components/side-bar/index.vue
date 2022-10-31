@@ -39,15 +39,19 @@
   onMounted(()=>{
     let list:any = []
     routes.forEach((item:any)=>{
-      if (item.path === '/') {
-        list.push(...item.children)
-      }
-    })
-    list.forEach((item:any)=>{
-      if(item.meta.roles.includes(mystorage.get('role')) ){
+      if(item.children){
         routerList.push(item)
+        // list.push(...item.children)
       }
+      // if (item.path === '/') {
+      // }
     })
+    // list.forEach((item:any)=>{
+    //   // if(item.meta.roles&&item.meta.roles.includes(mystorage.get('role')) ){
+    //   //   }
+    //     routerList.push(item)
+    // })
+    console.log(list,26)
     filterChildrenRoutes(routerList)
   })
 
@@ -57,12 +61,12 @@
   const filterChildrenRoutes = (childrenRouters:any) =>{
     let childrenList:Array<any> = []
     childrenRouters.forEach((item:any)=>{
-      if(item.meta.roles.includes(mystorage.get('role')) ){
-        childrenList.push(item);
-        if(item.children){
-          filterChildrenRoutes(item.children)
-        }
+      childrenList.push(item);
+      if(item.children){
+        filterChildrenRoutes(item.children)
       }
+      // if(item.meta.roles&&item.meta.roles.includes(mystorage.get('role')) ){
+      // }
     });
     childrenRouters.length = 0
     childrenRouters.push(...childrenList)

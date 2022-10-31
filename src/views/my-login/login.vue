@@ -74,29 +74,32 @@
   const submitForm = (formEl: FormInstance | undefined) =>{
     if (!formEl) return
     formEl.validate(async (valid) => {
-      if (valid) {
-        let parmas = {
-          userName: loginForm.userName,
-          password: loginForm.password
-        }
-        let {success,message,data} = await $api.apiLogin.login(parmas)
-        if(success){
-          mystorage.set('token', data.access_token);
-          mystorage.set('role', data.role);
-          mystorage.set('current_lang','zh_CN')
-          router.push({ 
-            name: 'Index'
-          })
-        }else{
-           ElMessage({
-            message: message,
-            type: 'error',
-          })
-        }
-      } else {
-        console.log('error submit!')
-        return false
-      }
+      router.push({ 
+        name: 'Index'
+      })
+      // if (valid) {
+      //   let parmas = {
+      //     userName: loginForm.userName,
+      //     password: loginForm.password
+      //   }
+      //   let {success,message,data} = await $api.apiLogin.login(parmas)
+      //   if(success){
+      //     mystorage.set('token', data.access_token);
+      //     mystorage.set('role', data.role);
+      //     mystorage.set('current_lang','zh_CN')
+      //     router.push({ 
+      //       name: 'Index'
+      //     })
+      //   }else{
+      //      ElMessage({
+      //       message: message,
+      //       type: 'error',
+      //     })
+      //   }
+      // } else {
+      //   console.log('error submit!')
+      //   return false
+      // }
     })
   }
 </script>

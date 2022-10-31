@@ -8,7 +8,7 @@ export default [
       hidden: false,
       roles: ['admin', 'editor']
     },
-    component: Layout,
+    component: () => import('@/pubLayout/index.vue'),
     children:[
       {
         path: '/system/user',

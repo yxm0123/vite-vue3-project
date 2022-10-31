@@ -22,27 +22,17 @@ export const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/my-errorpage/404.vue')
   },
   {
-    path: '',
-    // name: 'Index',
-    meta: { 
-      title: 'home', 
-      icon: 'HomeFilled', 
-      hidden: false
-    },
+    path: '/',
+    name: 'Index',
+    redirect: '/dashboad',
     component: () => import('@/pubLayout/index.vue'),
     children: [
-      {
-        path: 'index',
-        component: () => import('@/views/my-dashboard/index.vue'),
-        name: 'Index',
-        meta: { title: '首页', icon: 'dashboard', affix: true }
-      }
+      ...dashboard,
     ]
   },
-  ...dashboard,
   ...system
 ]
-
+console.log(routes, 1212)
 const router = createRouter({
   history: createWebHistory(),
   routes
