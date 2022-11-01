@@ -1,3 +1,4 @@
+import routerList from './data'
 export default [
   {
     url: "/api/login",
@@ -20,6 +21,17 @@ export default [
           success: false,
           message: '用户名错误或密码错误',
         }
+      }
+    }
+  },
+  {
+    url: "/api/user/getRouter",
+    method: "get",
+    response: () => {
+      return {
+        code: 200,
+        success: true,
+        data: routerList
       }
     }
   }

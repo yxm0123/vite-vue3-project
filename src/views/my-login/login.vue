@@ -55,6 +55,9 @@
   import {useRouter} from 'vue-router'
   import { ElMessage } from 'element-plus'
   import { mystorage } from '@/utils/storage';
+  import { routes } from '@/router'
+  import {useRouterStore} from '@/store/permission'
+  const useRouters = useRouterStore()
   const $api: any = inject('$api');
   const formRef = ref<FormInstance>()
   const router = useRouter()
@@ -99,6 +102,7 @@
       }
     })
   }
+
 </script>
 
 <style lang="scss" scoped>

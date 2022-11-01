@@ -35,15 +35,17 @@
   import SidebarItem from './sideBarItem.vue';
   import { routes } from '@/router/index';
   import { mystorage } from '@/utils/storage';
-  const routerList: Array<any> = reactive([])
+  import {useRouterStore} from '@/store/permission'
+  const useRouters = useRouterStore()
+  const routerList: Array<any> = reactive([]);
   onMounted(()=>{
     let list:any = []
-    routes.forEach((item:any)=>{
+    useRouters.sidebarRouters.forEach((item:any)=>{
       if(item.children){
         routerList.push(item)
-        // list.push(...item.children)
       }
     })
+    console.log(useRouters.sidebarRouters, 1212)
     // list.forEach((item:any)=>{
     //   if(item.meta.roles&&item.meta.roles.includes(mystorage.get('role')) ){
     //     routerList.push(item)

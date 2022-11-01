@@ -9,3 +9,11 @@ export const login = (data: any) =>{
     data,
   });
 };
+// 获取路由权限
+export const getRouters = (params:any) =>{
+  return  request({
+    url: urls.getRouters,
+    method: 'get',
+    params,
+  });
+};

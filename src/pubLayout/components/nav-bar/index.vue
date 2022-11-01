@@ -2,7 +2,7 @@
   <div class="nav-bar">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item 
-        v-for="(item, index) in path.menuList" 
+        v-for="(item) in path.menuList" 
           :key="item.path" 
           :to="{path: item.path}"
         >
@@ -19,7 +19,7 @@
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item @click="$router.push('/')">首页</el-dropdown-item>
-            <el-dropdown-item divided @click="$router.push('/login')">登出</el-dropdown-item>
+            <el-dropdown-item divided @click="LoginOut">登出</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -44,14 +44,15 @@
 </template>
 <script setup lang="ts">
   import { computed, reactive, ref,watch,nextTick} from 'vue';
-  import { useRoute } from 'vue-router';
+  import { useRoute,useRouter } from 'vue-router';
   import { mystorage } from '@/utils/storage';
   import i18n from '@/language';
+  const router = useRouter()
+  const route = useRoute();
   const path = computed(() => {
-    const route = useRoute();
     const { meta, path } = route;
     let matched = route.matched.filter((item) => item.meta && item.meta.title)
-    let menuList = matched.filter((item) => item.meta && item.meta.title && item.name !== 'dashboad')
+    let menuList = matched.filter((item) => item.meta && item.meta.title && item.name !== 'dashboard')
     return {
       meta,
       path,
@@ -73,6 +74,13 @@
     mystorage.set('current_lang',lang)
     i18n.global.locale = lang
     current_lang.value = lang
+  }
+  const LoginOut = () =>{
+    mystorage.set('token', '')
+    mystorage.set('storeRouter', '')
+    router.push({
+      path: '/login'
+    })
   }
 </script>
 

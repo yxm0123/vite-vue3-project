@@ -1,8 +1,8 @@
 <template>
-<!-- <div>56565</div> -->
-  <router-view v-slot="{ Component }">
+<div>56565</div>
+  <!-- <router-view v-slot="{ Component }">
     <component :is="Component" />
-  </router-view>
+  </router-view> -->
 </template>
 
 <script></script>

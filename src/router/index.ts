@@ -35,7 +35,7 @@ export const routes: Array<RouteRecordRaw> = [
       ...dashboard,
     ]
   },
-  ...system
+  // ...system
 ]
 const router = createRouter({
   history: createWebHistory(),
