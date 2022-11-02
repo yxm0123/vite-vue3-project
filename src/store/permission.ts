@@ -3,6 +3,7 @@ import router,{ routes } from '@/router';
 import pubLayout from '@/pubLayout/index.vue';
 import api from '@/api';
 import { mystorage } from '@/utils/storage';
+const modules = import.meta.glob('@/views/**/*.vue')
 export const useRouterStore = defineStore('routers',{
   state: ()=>({
     routes: [],
@@ -15,9 +16,10 @@ export const useRouterStore = defineStore('routers',{
         let concatRouters:any = routes.concat(filterSideBarRouter(data));
         this.sidebarRouters = concatRouters;
         this.routes = concatRouters;
-        router.addRoute(concatRouters)
+        concatRouters.forEach((route:any) => {
+          router.addRoute(route)
+        });
         mystorage.set('storeRouter',this.routes)
-        console.log(data)
       } catch (error) {
        console.log(error) 
       }
@@ -25,7 +27,9 @@ export const useRouterStore = defineStore('routers',{
     setSideBarRouters(routers:any) {
       this.sidebarRouters = routers;
       this.routes = routers;
-      router.addRoute(routers)
+      routers.forEach((route:any) => {
+        router.addRoute(route)
+      });
     }
   }
 })
@@ -38,7 +42,7 @@ const filterSideBarRouter = (sideBarRouter:any)=>{
     if(item.component){
       // 如果是Layout就是Layout组件
       if(item.component === 'pubLayout'){
-        item.component == pubLayout
+        item.component = ()=>import('@/pubLayout/index.vue')
       }else{
         item.component = loadComponent(item.component)
       }
@@ -46,7 +50,7 @@ const filterSideBarRouter = (sideBarRouter:any)=>{
     return true
   })
 }
-
+// 处理子路由
 const filterChildren = (childrenMap:any)=>{
   return childrenMap.filter((child:any)=>{
     if(child.children&&child.children.length){
@@ -60,9 +64,12 @@ const filterChildren = (childrenMap:any)=>{
 }
 // 加载路由
 const loadComponent = (com:String) =>{
-  if(process.env.NODE_ENV=== 'development'){
-    return (resolve:any) => require([`@/views/${com}.vue`], resolve)
-  }else{
-    return () => import(`@/views/${com}.vue`)
+  let res;
+  for (const path in modules) {
+    const dir = path.split('views')[1].split('.vue')[0];
+    if (dir === com) {
+        res = () => modules[path]();
+    }
   }
+  return res;
 }
