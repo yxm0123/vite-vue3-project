@@ -57,7 +57,9 @@
   import { mystorage } from '@/utils/storage';
   import { routes } from '@/router'
   import {useRouterStore} from '@/store/permission'
+  import {useUserStore} from '@/store/user'
   const useRouters = useRouterStore()
+  const useUser = useUserStore()
   const $api: any = inject('$api');
   const formRef = ref<FormInstance>()
   const router = useRouter()
@@ -84,6 +86,7 @@
         }
         let {success,message,data} = await $api.apiLogin.login(parmas)
         if(success){
+          useUser.setUserInfo(data);
           mystorage.set('token', data.access_token);
           mystorage.set('role', data.role);
           mystorage.set('current_lang','zh_CN')

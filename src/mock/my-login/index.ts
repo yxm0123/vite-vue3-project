@@ -12,7 +12,7 @@ export default [
           message: 'success',
           data: {
             access_token: Math.floor(Math.random() * 10) + 1 + 'cereson',
-            role: 'admin'
+            role: ['admin', 'editor']
           }
         }
       }else{

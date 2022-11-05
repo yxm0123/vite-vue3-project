@@ -2,7 +2,6 @@ import {defineStore} from 'pinia';
 import router,{ routes } from '@/router';
 import pubLayout from '@/pubLayout/index.vue';
 import api from '@/api';
-import { mystorage } from '@/utils/storage';
 const modules = import.meta.glob('@/views/**/*.vue')
 export const useRouterStore = defineStore('routers',{
   state: ()=>({
@@ -10,7 +9,9 @@ export const useRouterStore = defineStore('routers',{
     sidebarRouters: []
   }),
   actions:{
-    async getSideBarRouters(){
+    // 1. 获取到router存储起来
+    // 2. 在获取router的时候做判断
+    async setSideBarRouters(){
       try {
         let {data} =  await api.apiLogin.getRouters({});
         let concatRouters:any = routes.concat(filterSideBarRouter(data));
@@ -19,20 +20,20 @@ export const useRouterStore = defineStore('routers',{
         concatRouters.forEach((route:any) => {
           router.addRoute(route)
         });
-        mystorage.set('storeRouter',this.routes)
+        console.log(concatRouters,8888 )
       } catch (error) {
        console.log(error) 
       }
     },
-    setSideBarRouters(routers:any) {
-      this.sidebarRouters = routers;
-      this.routes = routers;
-      routers.forEach((route:any) => {
+    getSideBarRouters() {
+      this.sidebarRouters.forEach((route:any) => {
         router.addRoute(route)
       });
+      console.log(this.sidebarRouters, 999)
     }
   }
 })
+
 // 处理路由
 const filterSideBarRouter = (sideBarRouter:any)=>{
   return sideBarRouter.filter((item:any)=>{
