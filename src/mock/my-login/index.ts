@@ -12,7 +12,6 @@ export default [
           message: 'success',
           data: {
             access_token: Math.floor(Math.random() * 10) + 1 + 'cereson',
-            role: ['admin', 'editor']
           }
         }
       }else{
@@ -20,6 +19,19 @@ export default [
           code: 0,
           success: false,
           message: '用户名错误或密码错误',
+        }
+      }
+    }
+  },
+  {
+    url: "/api/user/userInfo",
+    method: "get",
+    response: () => {
+      return {
+        code: 200,
+        success: true,
+        data: {
+          role: ['admin', 'editor'],
         }
       }
     }

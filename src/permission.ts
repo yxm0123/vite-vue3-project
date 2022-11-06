@@ -4,7 +4,6 @@ import {useRouterStore} from '@/store/permission'
 import {useUserStore} from '@/store/user';
 router.beforeEach(async(to: any, from: any, next: any) => {
   let token = mystorage.get('token');
-  let getRouter = mystorage.get('storeRouter')
   const useUser = useUserStore()
   const useRouters = useRouterStore();
   // 判断是否有token
@@ -15,11 +14,10 @@ router.beforeEach(async(to: any, from: any, next: any) => {
     }else{
       // 判断是否已经登录获取到用户信息，没有的话需要调用获取用户信息
       if(useUser.roles.length===0){
-        useRouters.setSideBarRouters();
-        next()
-        // next({ ...to, replace: true })
+        await useUser.setUserInfo()
+        await useRouters.setSideBarRouters();
+        next({ ...to, replace: true })
       }else{
-        // useRouters.getSideBarRouters()
         next();
       }
     }

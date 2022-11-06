@@ -9,6 +9,14 @@ export const login = (data: any) =>{
     data,
   });
 };
+// 获取用户信息
+export const getUserInfos = (params:any) =>{
+  return  request({
+    url: urls.getUserInfo,
+    method: 'get',
+    params,
+  });
+};
 // 获取路由权限
 export const getRouters = (params:any) =>{
   return  request({

@@ -9,9 +9,14 @@ export const useUserStore = defineStore('user',{
     token: mystorage.get('token')
   }),
   actions:{
-    async setUserInfo(info:any){
-      this.roles = info.role
-      this.token = info.token
+    async setUserInfo(){
+      try {
+        let {data} = await api.apiLogin.getUserInfos({})
+        this.roles = data.role
+      } catch (error) {
+        console.log(error)
+      }
+    
     }
   }
 })

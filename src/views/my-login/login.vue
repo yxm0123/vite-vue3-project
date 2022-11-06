@@ -86,7 +86,7 @@
         }
         let {success,message,data} = await $api.apiLogin.login(parmas)
         if(success){
-          useUser.setUserInfo(data);
+          useUser.setUserInfo();
           mystorage.set('token', data.access_token);
           mystorage.set('role', data.role);
           mystorage.set('current_lang','zh_CN')
