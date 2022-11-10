@@ -10,7 +10,7 @@ export const login = (data: any) =>{
   });
 };
 // 获取用户信息
-export const getUserInfos = (params:any) =>{
+export const getUserInfos = (params?:any) =>{
   return  request({
     url: urls.getUserInfo,
     method: 'get',

@@ -26,10 +26,12 @@ export const routes: Array<RouteRecordRaw> = [
     name: 'Index',
     redirect: '/dashboard',
     component: () => import('@/pubLayout/index.vue'),
+    
     meta:{
       title: 'home',
       hidden: false,
-      icon: 'HomeFilled'
+      icon: 'HomeFilled',
+      roles: ['admin', 'editor']
     },
     children: [
       ...dashboard,

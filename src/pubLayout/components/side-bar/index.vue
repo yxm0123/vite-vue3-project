@@ -40,32 +40,32 @@
   const routerList: Array<any> = reactive([]);
   onMounted(()=>{
     let list:any = []
+    // 获取路由
     useRouters.sidebarRouters.forEach((item:any)=>{
       if(item.children){
+        list.push(item)
+      }
+    })
+    list.forEach((item:any)=>{
+      // 判断路由权限
+      if(item.meta.roles&&item.meta.roles.includes(mystorage.get('role')) ){
         routerList.push(item)
       }
     })
-    console.log(useRouters.sidebarRouters, 1212)
-    // list.forEach((item:any)=>{
-    //   if(item.meta.roles&&item.meta.roles.includes(mystorage.get('role')) ){
-    //     routerList.push(item)
-    //   }
-    // })
     filterChildrenRoutes(routerList)
   })
 
-  /**
-   * 子路由权限过滤
-   */
+  // 子路由权限过滤
   const filterChildrenRoutes = (childrenRouters:any) =>{
     let childrenList:Array<any> = []
     childrenRouters.forEach((item:any)=>{
-      childrenList.push(item);
+      // 判断子路由权限, 如果用户权限包含在路由设置的权限中，则返回改路由
+      if(item.meta.roles&&item.meta.roles.includes(mystorage.get('role')) ){
+        childrenList.push(item);
+      }
       if(item.children){
         filterChildrenRoutes(item.children)
       }
-      // if(item.meta.roles&&item.meta.roles.includes(mystorage.get('role')) ){
-      // }
     });
     childrenRouters.length = 0
     childrenRouters.push(...childrenList)

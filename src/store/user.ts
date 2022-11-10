@@ -11,8 +11,8 @@ export const useUserStore = defineStore('user',{
   actions:{
     async setUserInfo(){
       try {
-        let {data} = await api.apiLogin.getUserInfos({})
-        this.roles = data.role
+        let {data} = await api.apiLogin.getUserInfos()
+        this.roles = data
       } catch (error) {
         console.log(error)
       }

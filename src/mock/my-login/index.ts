@@ -1,3 +1,4 @@
+import { mystorage } from '@/utils/storage';
 import routerList from './data'
 export default [
   {
@@ -12,6 +13,17 @@ export default [
           message: 'success',
           data: {
             access_token: Math.floor(Math.random() * 10) + 1 + 'cereson',
+            role: 'admin'
+          }
+        }
+      }else if(userName === 'editor' && password == '12345'){
+        return {
+          code: 200,
+          success: true,
+          message: 'success',
+          data: {
+            access_token: Math.floor(Math.random() * 10) + 1 + 'cereson',
+            role: 'editor'
           }
         }
       }else{
@@ -31,7 +43,7 @@ export default [
         code: 200,
         success: true,
         data: {
-          role: ['admin', 'editor'],
+          roles:  ['admin','editor'],
         }
       }
     }

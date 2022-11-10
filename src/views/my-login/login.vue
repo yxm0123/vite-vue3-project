@@ -44,6 +44,7 @@
           </el-button>
         </el-form-item>
         <p class="login-tips">用户名: admin 密码: 123</p>
+        <p class="login-tips">用户名: editor 密码: 12345</p>
       </el-form>
     </div>
   </div>
@@ -86,10 +87,10 @@
         }
         let {success,message,data} = await $api.apiLogin.login(parmas)
         if(success){
-          useUser.setUserInfo();
           mystorage.set('token', data.access_token);
           mystorage.set('role', data.role);
           mystorage.set('current_lang','zh_CN')
+          useUser.setUserInfo();
           router.push({ 
             name: 'Index'
           })

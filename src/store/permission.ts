@@ -20,7 +20,6 @@ export const useRouterStore = defineStore('routers',{
         concatRouters.forEach((route:any) => {
           router.addRoute(route)
         });
-        console.log(concatRouters,8888 )
       } catch (error) {
        console.log(error) 
       }
@@ -29,7 +28,6 @@ export const useRouterStore = defineStore('routers',{
       this.sidebarRouters.forEach((route:any) => {
         router.addRoute(route)
       });
-      console.log(this.sidebarRouters, 999)
     }
   }
 })
