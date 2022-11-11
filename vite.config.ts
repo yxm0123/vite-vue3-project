@@ -17,15 +17,15 @@ export default defineConfig({
      })
   ],
   server: {
-    port: 8080, //启动端口
+    port: 8088, //启动端口
     hmr: {
       host: '127.0.0.1',
-      port: 8080
+      port: 8088
     },
     // 设置 https 代理
     proxy: {
       '/v1': {
-          target: 'https://apisd.cereson.cn',
+          target: '',
           changeOrigin: true,
           rewrite: (path: string) => path.replace(/^\/api/, '')
         }
