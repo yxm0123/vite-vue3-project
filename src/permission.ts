@@ -3,12 +3,12 @@ import { mystorage } from '@/utils/storage';
 import {useRouterStore} from '@/store/permission'
 import {useUserStore} from '@/store/user';
 router.beforeEach(async(to: any, from: any, next: any) => {
-  let token = mystorage.get('token');
+  const token = mystorage.get('token');
   const useUser = useUserStore()
   const useRouters = useRouterStore();
+  const toRoles = to.meta.roles || []
   // 判断是否有token
   if(token){
-    const useRouters = useRouterStore();
     if(to.path === '/login'){
       next({path: '/'})
     }else{
@@ -18,14 +18,21 @@ router.beforeEach(async(to: any, from: any, next: any) => {
         await useRouters.setSideBarRouters();
         next({ ...to, replace: true })
       }else{
-        next();
+        // 判断用户是否有权限进入此路由
+        if(toRoles.includes(mystorage.get('role'))){
+          next();
+        }else{
+          // 没有权限跳转到登录页面
+          mystorage.set('token', '')
+          next({path: '/login'})
+        }
       }
     }
   }else{
     if (to.name == "Login") {
       next();
     } else {
-      next('/login');
+      next({path: '/login'});
     }
   }
 });

@@ -19,7 +19,7 @@
         class="el-menu-vertical-demo"
         mode="vertical"
       >
-        <SidebarItem 
+        <SidebarItem
           v-for="item in routerList"
           :key="item.path"
           :index="item.path"

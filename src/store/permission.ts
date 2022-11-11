@@ -2,7 +2,6 @@ import {defineStore} from 'pinia';
 import router,{ routes } from '@/router';
 import pubLayout from '@/pubLayout/index.vue';
 import api from '@/api';
-const modules = import.meta.glob('@/views/**/*.vue')
 export const useRouterStore = defineStore('routers',{
   state: ()=>({
     routes: [],
@@ -13,7 +12,8 @@ export const useRouterStore = defineStore('routers',{
     // 2. 在获取router的时候做判断
     async setSideBarRouters(){
       try {
-        let {data} =  await api.apiLogin.getRouters({});
+        let {data} = await api.apiLogin.getRouters({});
+        // 把从接口获取的路由处理后与本地路由合并
         let concatRouters:any = routes.concat(filterSideBarRouter(data));
         this.sidebarRouters = concatRouters;
         this.routes = concatRouters;
@@ -23,11 +23,6 @@ export const useRouterStore = defineStore('routers',{
       } catch (error) {
        console.log(error) 
       }
-    },
-    getSideBarRouters() {
-      this.sidebarRouters.forEach((route:any) => {
-        router.addRoute(route)
-      });
     }
   }
 })
@@ -43,6 +38,7 @@ const filterSideBarRouter = (sideBarRouter:any)=>{
       if(item.component === 'pubLayout'){
         item.component = ()=>import('@/pubLayout/index.vue')
       }else{
+        // 加载路由
         item.component = loadComponent(item.component)
       }
     }
@@ -62,12 +58,13 @@ const filterChildren = (childrenMap:any)=>{
   })
 }
 // 加载路由
-const loadComponent = (com:String) =>{
+const modules = import.meta.glob('@/views/**/*.vue')
+const loadComponent = (comp:String) =>{
   let res;
   for (const path in modules) {
     const dir = path.split('views')[1].split('.vue')[0];
-    if (dir === com) {
-        res = () => modules[path]();
+    if (dir === comp) {
+      res = () => modules[path]();
     }
   }
   return res;

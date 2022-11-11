@@ -13,10 +13,10 @@ export const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/my-login/login.vue')
   },
   {
-    path: '/404',
+    path: '/error',
     name: 'Error',
     meta: {
-      title: '404',
+      title: 'Error',
       hidden: true
     },
     component: () => import('@/views/my-errorpage/404.vue')
@@ -26,7 +26,6 @@ export const routes: Array<RouteRecordRaw> = [
     name: 'Index',
     redirect: '/dashboard',
     component: () => import('@/pubLayout/index.vue'),
-    
     meta:{
       title: 'home',
       hidden: false,
