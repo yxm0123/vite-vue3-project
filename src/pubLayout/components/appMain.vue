@@ -1,5 +1,8 @@
 <template>
-  <section ref="appMain" class="app-main">
+  <section
+    ref="appMain"
+    class="app-main"
+  >
     <router-view v-slot="{Component}">
       <transition>
         <component :is="Component" />

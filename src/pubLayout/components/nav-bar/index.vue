@@ -3,29 +3,36 @@
     <el-breadcrumb separator="/">
       <el-breadcrumb-item 
         v-for="(item) in path.menuList" 
-          :key="item.path" 
-          :to="{path: item.path}"
-        >
-        {{ $t(`public.${item.meta.title}`)}}
+        :key="item.path" 
+        :to="{path: item.path}"
+      >
+        {{ $t(`public.${item.meta.title}`) }}
       </el-breadcrumb-item>
     </el-breadcrumb>
     <div>
       <el-dropdown class="avatar-container right-menu-item">
         <div class="avatar-wrapper">
-         <el-avatar
+          <el-avatar
             src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
           />
         </div>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item @click="$router.push('/')">首页</el-dropdown-item>
-            <el-dropdown-item divided @click="LoginOut">登出</el-dropdown-item>
+            <el-dropdown-item @click="$router.push('/')">
+              首页
+            </el-dropdown-item>
+            <el-dropdown-item
+              divided
+              @click="LoginOut"
+            >
+              登出
+            </el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
-        <el-dropdown class="lang-container right-menu-item">
+      <el-dropdown class="lang-container right-menu-item">
         <div class="">
-          {{$t(`public.${current_lang}`)}}
+          {{ $t(`public.${current_lang}`) }}
         </div>
         <template #dropdown>
           <el-dropdown-menu>
@@ -34,7 +41,7 @@
               :key="item.value"
               @click="changeLang(item.value)"
             >
-              {{$t(`public.${item.value}`)}}
+              {{ $t(`public.${item.value}`) }}
             </el-dropdown-item>
           </el-dropdown-menu>
         </template>
@@ -43,16 +50,16 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { computed, reactive, ref,watch,nextTick} from 'vue';
+  import { computed, reactive, ref} from 'vue';
   import { useRoute,useRouter } from 'vue-router';
   import { mystorage } from '@/utils/storage';
   import i18n from '@/language';
-  const router = useRouter()
+  const router = useRouter();
   const route = useRoute();
   const path = computed(() => {
     const { meta, path } = route;
-    let matched = route.matched.filter((item) => item.meta && item.meta.title)
-    let menuList = matched.filter((item) => item.meta && item.meta.title && item.name !== 'dashboard')
+    let matched = route.matched.filter((item) => item.meta && item.meta.title);
+    let menuList = matched.filter((item) => item.meta && item.meta.title && item.name !== 'dashboard');
     return {
       meta,
       path,
@@ -69,19 +76,19 @@
       value: 'en_US'
     }, 
   ]);
-  const current_lang = ref<string>(mystorage.get('current_lang'))
+  const current_lang = ref<string>(mystorage.get('current_lang'));
   const changeLang = (lang:string)=>{
-    mystorage.set('current_lang',lang)
-    i18n.global.locale = lang
-    current_lang.value = lang
-  }
+    mystorage.set('current_lang',lang);
+    i18n.global.locale = lang;
+    current_lang.value = lang;
+  };
   const LoginOut = () =>{
-    mystorage.set('token', '')
-    mystorage.set('storeRouter', '')
+    mystorage.set('token', '');
+    mystorage.set('storeRouter', '');
     router.push({
       path: '/login'
-    })
-  }
+    });
+  };
 </script>
 
 <style lang="scss" scoped>

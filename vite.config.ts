@@ -1,7 +1,7 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
 import * as path from 'path';
-import { viteMockServe } from "vite-plugin-mock"
+import { viteMockServe } from "vite-plugin-mock";
 export default defineConfig({
   resolve: {
     //设置别名
@@ -30,5 +30,5 @@ export default defineConfig({
           rewrite: (path: string) => path.replace(/^\/api/, '')
         }
       }
-    }
-})
+  },
+});

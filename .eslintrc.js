@@ -6,12 +6,13 @@ module.exports = {
     sourceType: 'module',
     ecmaFeatures: {
         jsx: true
-    }
+    },
+    requireConfigFile: false
   },
 
   extends: [
     'plugin:vue/vue3-recommended',
-    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended'
   ],
 
   rules: {
@@ -35,13 +36,9 @@ module.exports = {
     'vue/match-component-file-name': 'error',
     'vue/object-curly-spacing': 'off',
     'semi': ["error", "always"], // 分号，双引号报错提示
-    "vue/max-attributes-per-line": ["error", { // html属性不换行报错提示
-      "singleline": 3,
-      "multiline": {
-        "max": 1,
-        "allowFirstLine": true
-      }
-    }],
     "vue/html-self-closing": ["off", {}],
+    '@typescript-eslint/no-unused-vars': ['off'],
+    '@typescript-eslint/no-explicit-any': ['off'],
+    'vue/multi-word-component-names': 'off',
   }
 };

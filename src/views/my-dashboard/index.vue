@@ -6,24 +6,33 @@
         :key="index"
         :span="6" 
       >
-        <el-card shadow="always" > 
+        <el-card shadow="always"> 
           <div class="card-item">
             {{ item.name }}
             <span>今日 / 昨日</span>
           </div>
           <div class="card-item item-bottom">
             <el-icon size="26px">
-              <component :is="item.icon"/>
+              <component :is="item.icon" />
             </el-icon>
-            <span>{{item.current}} / {{item.next}}</span>
+            <span>{{ item.current }} / {{ item.next }}</span>
           </div>
         </el-card>
       </el-col>
     </el-row>
     <div class="charts-contanier">
-      <div class="myChart" ref="myBarChart"></div>
-      <div class="myChart" ref="myLineChart"></div>
-      <div class="myChart" ref="myPieChart"></div>
+      <div
+        ref="myBarChart"
+        class="myChart"
+      ></div>
+      <div
+        ref="myLineChart"
+        class="myChart"
+      ></div>
+      <div
+        ref="myPieChart"
+        class="myChart"
+      ></div>
     </div>
   </div>
 </template>
@@ -32,7 +41,7 @@
   import * as echarts from "echarts";
   const $api: any = inject('$api');
   onMounted(() => {
-    getData()
+    getData();
   }); 
   const myBarChart = ref<any>();
   const myBarCharts = ref<any>();
@@ -40,12 +49,12 @@
   const myLineCharts = ref<any>();
   const myPieChart = ref<any>();
   const myPieCharts = ref<any>();
-  const list: Array<any> = reactive([])
+  const list: Array<any> = reactive([]);
   const getData = async()=>{
     try {
       let {data} = await $api.apiDashboard.getData();
-      let {card_list,echarts_result} = data
-      list.push(...card_list)
+      let {card_list,echarts_result} = data;
+      list.push(...card_list);
       myBarCharts.value = echarts.init(myBarChart.value);
       myBarCharts.value.setOption(echarts_result.barOptions);
       myLineCharts.value = echarts.init(myLineChart.value);
@@ -53,9 +62,9 @@
       myPieCharts.value = echarts.init(myPieChart.value);
       myPieCharts.value.setOption(echarts_result.pieOptions);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 </script>
 
 <style lang="scss" scoped>

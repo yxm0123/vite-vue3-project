@@ -2,11 +2,16 @@
   <div class="sidebar-container">
     <div class="logo">
       <el-icon size="26px">
-        <el-icon size="20px" color="#fff">
+        <el-icon
+          size="20px"
+          color="#fff"
+        >
           <OfficeBuilding />
         </el-icon>
       </el-icon>
-      <h1 class="logo-text">管理平台</h1>
+      <h1 class="logo-text">
+        管理平台
+      </h1>
     </div>
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
@@ -33,43 +38,43 @@
   import {reactive,computed, onMounted} from 'vue';
   import { useRoute } from 'vue-router';
   import SidebarItem from './sideBarItem.vue';
-  import { routes } from '@/router/index';
+  // import { routes } from '@/router/index';
   import { mystorage } from '@/utils/storage';
-  import {useRouterStore} from '@/store/permission'
-  const useRouters = useRouterStore()
+  import {useRouterStore} from '@/store/permission';
+  const useRouters = useRouterStore();
   const routerList: Array<any> = reactive([]);
   onMounted(()=>{
-    let list:any = []
+    let list:any = [];
     // 获取路由
     useRouters.sidebarRouters.forEach((item:any)=>{
       if(item.children){
-        list.push(item)
+        list.push(item);
       }
-    })
+    });
     list.forEach((item:any)=>{
       // 判断路由权限
       if(item.meta.roles&&item.meta.roles.includes(mystorage.get('role')) ){
-        routerList.push(item)
+        routerList.push(item);
       }
-    })
-    filterChildrenRoutes(routerList)
-  })
+    });
+    filterChildrenRoutes(routerList);
+  });
 
   // 子路由权限过滤
   const filterChildrenRoutes = (childrenRouters:any) =>{
-    let childrenList:Array<any> = []
+    let childrenList:Array<any> = [];
     childrenRouters.forEach((item:any)=>{
       // 判断子路由权限, 如果用户权限包含在路由设置的权限中，则返回改路由
       if(item.meta.roles&&item.meta.roles.includes(mystorage.get('role')) ){
         childrenList.push(item);
       }
       if(item.children){
-        filterChildrenRoutes(item.children)
+        filterChildrenRoutes(item.children);
       }
     });
-    childrenRouters.length = 0
-    childrenRouters.push(...childrenList)
-  }
+    childrenRouters.length = 0;
+    childrenRouters.push(...childrenList);
+  };
    const activeMenu = computed(() => {
       const route = useRoute();
       const { meta, path } = route;

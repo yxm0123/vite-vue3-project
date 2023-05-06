@@ -1,7 +1,12 @@
 <template>
   <div class="error-container">
     <div>没有此页面</div>
-    <el-button type="primary" @click="$router.replace('/')">点击返回首页</el-button>
+    <el-button
+      type="primary"
+      @click="$router.replace('/')"
+    >
+      点击返回首页
+    </el-button>
   </div>
 </template>
 

@@ -1,7 +1,9 @@
 <template>
   <div class="login-container">
     <div class="box-card">
-      <div class="login-title">系统登录</div>
+      <div class="login-title">
+        系统登录
+      </div>
       <el-form
         ref="formRef"
         :model="loginForm"
@@ -11,10 +13,11 @@
         class="login-form"
       >
         <el-form-item prop="userName">
-        <el-input 
-          v-model="loginForm.userName" 
-          clearable placeholder="用户名"
-        >
+          <el-input 
+            v-model="loginForm.userName" 
+            clearable
+            placeholder="用户名"
+          >
             <template #prepend>
               <el-icon>
                 <Avatar />
@@ -37,33 +40,37 @@
         <el-form-item>
           <el-button 
             type="primary"
-            @click="submitForm(formRef)"
             class="login-btn"
+            @click="submitForm(formRef)"
           >
             登录
           </el-button>
         </el-form-item>
-        <p class="login-tips">用户名: admin 密码: 123</p>
-        <p class="login-tips">用户名: editor 密码: 12345</p>
+        <p class="login-tips">
+          用户名: admin 密码: 123
+        </p>
+        <p class="login-tips">
+          用户名: editor 密码: 12345
+        </p>
       </el-form>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { reactive, ref,inject } from 'vue'
+  import { reactive, ref,inject } from 'vue';
   import type { FormInstance, FormRules } from 'element-plus';
-  import {useRouter} from 'vue-router'
-  import { ElMessage } from 'element-plus'
+  import {useRouter} from 'vue-router';
+  import { ElMessage } from 'element-plus';
   import { mystorage } from '@/utils/storage';
-  import { routes } from '@/router'
-  import {useRouterStore} from '@/store/permission'
-  import {useUserStore} from '@/store/user'
-  const useRouters = useRouterStore()
-  const useUser = useUserStore()
+  import { routes } from '@/router';
+  import {useRouterStore} from '@/store/permission';
+  import {useUserStore} from '@/store/user';
+  const useRouters = useRouterStore();
+  const useUser = useUserStore();
   const $api: any = inject('$api');
-  const formRef = ref<FormInstance>()
-  const router = useRouter()
+  const formRef = ref<FormInstance>();
+  const router = useRouter();
   const loginForm = reactive({
     userName: '',
     password: ''
@@ -75,37 +82,37 @@
     password: [
       { required: true, message: '请输入密码', trigger: 'blur' },
     ],
-  })
+  });
   //提交
   const submitForm = (formEl: FormInstance | undefined) =>{
-    if (!formEl) return
+    if (!formEl) return;
     formEl.validate(async (valid) => {
       if (valid) {
         let parmas = {
           userName: loginForm.userName,
           password: loginForm.password
-        }
-        let {success,message,data} = await $api.apiLogin.login(parmas)
+        };
+        let {success,message,data} = await $api.apiLogin.login(parmas);
         if(success){
           mystorage.set('token', data.access_token);
           mystorage.set('role', data.role);
-          mystorage.set('current_lang','zh_CN')
+          mystorage.set('current_lang','zh_CN');
           useUser.setUserInfo();
           router.push({ 
             name: 'Index'
-          })
+          });
         }else{
            ElMessage({
             message: message,
             type: 'error',
-          })
+          });
         }
       } else {
-        console.log('error submit!')
-        return false
+        console.log('error submit!');
+        return false;
       }
-    })
-  }
+    });
+  };
 
 </script>
 

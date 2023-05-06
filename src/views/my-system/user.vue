@@ -1,5 +1,5 @@
 <template>
- <div class="user-container">
+  <div class="user-container">
     <h3>用户管理</h3>
     <div class="user-header">
       <el-button 
@@ -15,18 +15,44 @@
       border
       style="width: 100%"
     >
-      <el-table-column type="selection" width="55" />
-      <el-table-column prop="name" label="姓名"  />
-      <el-table-column label="账号" >
-        <template #default="scope">{{ scope.row.account }}</template>
-      </el-table-column>
-      <el-table-column prop="password" label="密码"  />
-      <el-table-column prop="email" label="邮箱"  />
-      <el-table-column prop="roles" label="角色"  />
-      <el-table-column prop="date" label="创建时间"  />
-      <el-table-column  label="操作" >
+      <el-table-column
+        type="selection"
+        width="55"
+      />
+      <el-table-column
+        prop="name"
+        label="姓名"
+      />
+      <el-table-column label="账号">
         <template #default="scope">
-          <el-button type="primary" size="small" v-permission="['admin']">编辑</el-button>
+          {{ scope.row.account }}
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="password"
+        label="密码"
+      />
+      <el-table-column
+        prop="email"
+        label="邮箱"
+      />
+      <el-table-column
+        prop="roles"
+        label="角色"
+      />
+      <el-table-column
+        prop="date"
+        label="创建时间"
+      />
+      <el-table-column label="操作">
+        <template #default="scope">
+          <el-button
+            v-permission="['admin']"
+            type="primary"
+            size="small"
+          >
+            编辑
+          </el-button>
           <el-button
             size="small"
             type="danger"
@@ -37,6 +63,16 @@
         </template>
       </el-table-column>
     </el-table>
+    <div>
+      <VueSlider
+        ref="slider"
+        v-model="num"
+        :dot-size="[35,35]"
+        tooltip="active" 
+        :drag-on-click="true"
+        height="10px"
+      />
+    </div>
     <div class="user-pagination">
       <el-pagination
         v-model:currentPage="currentPage"
@@ -47,28 +83,40 @@
         :total="tableData.length"
       />
     </div>
-     <el-dialog
+    <el-dialog
       v-model="addDialogVisible"
       title="添加用户"
       width="30%"
       align-center
     >
-     <div class="dialog-body">
-      <el-form
-        ref="userFormRef"
-        :model="ruleForm"
-        status-icon
-        :rules="rules"
-        label-width="80px"
-      >
-        <el-form-item label="用户名：" prop="userName">
-          <el-input v-model="ruleForm.userName" type="text" />
-        </el-form-item>
-        <el-form-item label="密码：" prop="password">
-          <el-input v-model="ruleForm.password" type="password" />
-        </el-form-item>
-      </el-form>
-     </div>
+      <div class="dialog-body">
+        <el-form
+          ref="userFormRef"
+          :model="ruleForm"
+          status-icon
+          :rules="rules"
+          label-width="80px"
+        >
+          <el-form-item
+            label="用户名："
+            prop="userName"
+          >
+            <el-input
+              v-model="ruleForm.userName"
+              type="text"
+            />
+          </el-form-item>
+          <el-form-item
+            label="密码："
+            prop="password"
+          >
+            <el-input
+              v-model="ruleForm.password"
+              type="password"
+            />
+          </el-form-item>
+        </el-form>
+      </div>
       <template #footer>
         <span class="dialog-footer">
           <el-button 
@@ -85,12 +133,14 @@
         </span>
       </template>
     </el-dialog>
- </div>
+  </div>
 </template>
 
 <script lang="ts" setup>
-import { ref,inject, onMounted, reactive } from 'vue'
+import { ref,inject, onMounted, reactive } from 'vue';
 import { ElMessage,ElMessageBox } from 'element-plus';
+import VueSlider from 'vue-slider-component';
+  import 'vue-slider-component/theme/antd.css';
   const $api: any = inject('$api');
   interface User {
     account: string
@@ -100,21 +150,22 @@ import { ElMessage,ElMessageBox } from 'element-plus';
     password: string
     date: string
   }
-  const currentPage = ref(1)
-  const pageSize = ref(10)
-  const tableData: Array<User> = reactive([])
+  const currentPage = ref(1);
+  const pageSize = ref(10);
+  const tableData: Array<User> = reactive([]);
   onMounted(()=>{
-    getTableList()
-  })
+    getTableList();
+  });
+  const num = ref(10);
   const getTableList = async()=>{
     try {
       let {data} = await $api.apiSystem.getList();
-      tableData.push(...data)
+      tableData.push(...data);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-  const deleteItem = async(index:Number,row:User) =>{
+  };
+  const deleteItem = async(index:number,row:User) =>{
     await ElMessageBox.confirm(
         '确定删除？',
         '提示',
@@ -127,15 +178,15 @@ import { ElMessage,ElMessageBox } from 'element-plus';
     try {
       // 删除逻辑
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
 
-  }
+  };
   const userFormRef = ref();
   const ruleForm = reactive({
     userName: '',
     password: ''
-  })
+  });
 
   const rules = reactive({
     userName: [
@@ -144,16 +195,16 @@ import { ElMessage,ElMessageBox } from 'element-plus';
     password: [
       { required: true, message: '请填写密码', trigger: 'blur' }
     ],
-  })
+  });
   const addDialogVisible = ref(false);
   const addUser = async() =>{
     try {
       await userFormRef.value.validate();
       // todo... 业务逻辑
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 </script>
 
 <style lang="scss" scoped>
